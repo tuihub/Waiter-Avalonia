@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waiter", "Waiter\Waiter.csproj", "{5D466184-F40C-4B8F-B66D-EE45F433B6B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waiter.Desktop", "Waiter.Desktop\Waiter.Desktop.csproj", "{5B812082-4E2D-4FA1-AF07-2164C2A67D58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D466184-F40C-4B8F-B66D-EE45F433B6B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D466184-F40C-4B8F-B66D-EE45F433B6B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D466184-F40C-4B8F-B66D-EE45F433B6B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D466184-F40C-4B8F-B66D-EE45F433B6B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B812082-4E2D-4FA1-AF07-2164C2A67D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B812082-4E2D-4FA1-AF07-2164C2A67D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B812082-4E2D-4FA1-AF07-2164C2A67D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B812082-4E2D-4FA1-AF07-2164C2A67D58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF58A381-49CD-44A5-A036-CDC8F72F7ABB}
+	EndGlobalSection
+EndGlobal
