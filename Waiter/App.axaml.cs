@@ -4,6 +4,8 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Security.Authentication.ExtendedProtection;
+using Waiter.Contracts;
+using Waiter.Pages;
 using Waiter.Services;
 using Waiter.ViewModels;
 using Waiter.Views;
@@ -27,14 +29,14 @@ public partial class App : Application
         {
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = ServiceProvider.GetRequiredService(typeof(MainViewModel))
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
+            singleViewPlatform.MainView = new MainView()
             {
-                DataContext = new MainViewModel()
+                DataContext = ServiceProvider.GetRequiredService(typeof(MainViewModel))
             };
         }
 
@@ -51,7 +53,18 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
+        // add singleton services
         services.AddSingleton<IPageService, PageService>();
+
+        // add main view and view model
+        services.AddScoped<MainView>();
+        services.AddScoped<MainViewModel>();
+        
+        // add pages and view models
+        services.AddScoped<HomePage>();
+        services.AddScoped<HomePageViewModel>();
+        services.AddScoped<SettingsPage>();
+        services.AddScoped<SettingsPageViewModel>();
 
         return services;
     }

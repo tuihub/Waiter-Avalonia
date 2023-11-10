@@ -15,12 +15,14 @@
   </Design.DataContext>
 
 	<ui:NavigationView AlwaysShowHeader="False"
-                       PaneDisplayMode="LeftMinimal"
+                       PaneDisplayMode="LeftCompact"
                        Name="NavView"
                        IsSettingsVisible="False"
                        IsBackEnabled="{Binding #FrameView.CanGoBack}"
 					   MenuItemsSource="{Binding MenuItems}"
-				       FooterMenuItemsSource="{Binding FooterMenuItems}">
+				       FooterMenuItemsSource="{Binding FooterMenuItems}"
+					   SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+					   ItemInvoked="NavigationView_ItemInvoked">
 		<ui:Frame Name="FrameView" />
 	</ui:NavigationView>
 

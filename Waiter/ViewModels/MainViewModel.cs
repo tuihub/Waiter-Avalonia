@@ -1,26 +1,26 @@
 ﻿using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using Waiter.Contracts;
 using Waiter.Pages;
 
 namespace Waiter.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public NavigationFactory NavigationFactory { get; }
-
-    public MainViewModel()
+    private IPageService _pageService;
+    public MainViewModel(IPageService pageService)
     {
-        NavigationFactory = new NavigationFactory(this);
+        _pageService = pageService;
     }
-
     public IList<NavigationViewItem> MenuItems { get; } = new List<NavigationViewItem>
     {
         new NavigationViewItem
         {
             Content = "主界面",
-            Tag = typeof(HomePageViewModel),
+            Tag = typeof(HomePage),
             IconSource = new SymbolIconSource { Symbol = Symbol.Home }
         }
     };
@@ -29,45 +29,19 @@ public class MainViewModel : ViewModelBase
         new NavigationViewItem
         {
             Content = "设置",
-            Tag = typeof(SettingsPageViewModel),
+            Tag = typeof(SettingsPage),
             IconSource = new SymbolIconSource { Symbol = Symbol.Setting }
         }
     };
-}
-
-public class NavigationFactory : INavigationPageFactory
-{
-    public NavigationFactory(MainViewModel owner)
+    private NavigationViewItem? _selectedItem;
+    public NavigationViewItem? SelectedItem
     {
-        Owner = owner;
+        get => _selectedItem;
+        set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
     }
 
-    public MainViewModel Owner { get; }
-
-    public Control GetPage(Type srcType)
+    public void FrameViewNavigateFromObject(Frame frame, Type type)
     {
-        return null;
-    }
-
-    public Control GetPageFromObject(object target)
-    {
-        if (target is HomePageViewModel)
-        {
-            return new HomePage
-            {
-                DataContext = target
-            };
-        }
-        else if (target is SettingsPageViewModel)
-        {
-            return new SettingsPage
-            {
-                DataContext = target
-            };
-        }
-        else
-        {
-            throw new NotImplementedException();
-        }
+        frame.Content = _pageService.GetPage(type);
     }
 }

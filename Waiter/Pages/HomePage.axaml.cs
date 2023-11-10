@@ -1,11 +1,14 @@
 using Avalonia.Controls;
+using Waiter.ViewModels;
 
 namespace Waiter.Pages
 {
     public partial class HomePage : UserControl
     {
-        public HomePage()
+        public HomePage(HomePageViewModel homePageViewModel)
         {
+            DataContext = homePageViewModel;
+
             InitializeComponent();
         }
     }

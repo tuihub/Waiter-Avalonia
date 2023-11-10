@@ -1,4 +1,6 @@
 ﻿using Avalonia.Controls;
+using Waiter.Contracts;
+using Waiter.ViewModels;
 
 namespace Waiter.Views;
 
