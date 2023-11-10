@@ -15,10 +15,12 @@
   </Design.DataContext>
 
 	<ui:NavigationView AlwaysShowHeader="False"
-                       PaneDisplayMode="Left"
+                       PaneDisplayMode="LeftMinimal"
                        Name="NavView"
                        IsSettingsVisible="False"
-                       IsBackEnabled="{Binding #FrameView.CanGoBack}">
+                       IsBackEnabled="{Binding #FrameView.CanGoBack}"
+					   MenuItemsSource="{Binding MenuItems}"
+				       FooterMenuItemsSource="{Binding FooterMenuItems}">
 		<ui:Frame Name="FrameView" />
 	</ui:NavigationView>
 
