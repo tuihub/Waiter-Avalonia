@@ -28,6 +28,12 @@ public class MainViewModel : ViewModelBase
     {
         new NavigationViewItem
         {
+            Content = "用户",
+            Tag = typeof(UserPage),
+            IconSource = new SymbolIconSource { Symbol = Symbol.People }
+        },
+        new NavigationViewItem
+        {
             Content = "设置",
             Tag = typeof(SettingsPage),
             IconSource = new SymbolIconSource { Symbol = Symbol.Setting }

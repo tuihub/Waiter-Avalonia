@@ -65,6 +65,8 @@ public partial class App : Application
         services.AddScoped<HomePageViewModel>();
         services.AddScoped<SettingsPage>();
         services.AddScoped<SettingsPageViewModel>();
+        services.AddScoped<UserPage>();
+        services.AddScoped<UserPageViewModel>();
 
         return services;
     }
