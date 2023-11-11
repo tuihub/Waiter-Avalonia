@@ -1,21 +1,30 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Grpc.Net.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Security.Authentication.ExtendedProtection;
 using Waiter.Contracts;
 using Waiter.Core.Contracts.Services;
+using Waiter.Models.Db;
+using Waiter.Models;
 using Waiter.Pages;
 using Waiter.Services;
 using Waiter.ViewModels;
 using Waiter.Views;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using Waiter.Helpers;
 
 namespace Waiter;
 
 public partial class App : Application
 {
-    public static IServiceProvider ServiceProvider = null!;
+    public IServiceProvider ServiceProvider = null!;
 
     public override void Initialize()
     {
@@ -25,6 +34,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         ConfigureServiceProvider();
+        PostConfiguration();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -44,7 +54,7 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private static void ConfigureServiceProvider()
+    private void ConfigureServiceProvider()
     {
         var services = ConfigureServices();
         ServiceProvider = services.BuildServiceProvider();
@@ -57,6 +67,10 @@ public partial class App : Application
         // add singleton services
         services.AddSingleton<IPageService, PageService>();
         services.AddSingleton<ILibrarianClientService, ILibrarianClientService>();
+        services.AddSingleton<GlobalContext>();
+        
+        // add db context
+        services.AddDbContext<ApplicationDbContext>();
 
         // add main view and view model
         services.AddScoped<MainView>();
@@ -71,5 +85,28 @@ public partial class App : Application
         services.AddScoped<UserPageViewModel>();
 
         return services;
+    }
+
+    private void PostConfiguration()
+    {
+        var globalContext = ServiceProvider.GetRequiredService<GlobalContext>();
+
+        // ensure db created
+        using var db = ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.Migrate();
+
+        // ensure user created
+        if (db.Users.Any() == false)
+            db.Users.Add(new User());
+        db.SaveChanges();
+
+        // set login state from db
+        var user = db.Users.First();
+        GlobalContextStateHelper.UpdateLoginState(
+                                    globalContext,
+                                    db,
+                                    string.IsNullOrEmpty(user.AccessToken) ? null : user.AccessToken,
+                                    string.IsNullOrEmpty(user.RefreshToken) ? null : user.RefreshToken)
+                                .Wait();
     }
 }

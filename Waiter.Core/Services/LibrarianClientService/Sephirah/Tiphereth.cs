@@ -10,7 +10,7 @@ namespace Waiter.Core.Services
 {
     public partial class LibrarianClientService : ILibrarianClientService
     {
-        public Task<(string, string)> GetTokenAsync(string username, string password)
+        public async Task<(string, string)> GetTokenAsync(string username, string password)
         {
             var request = new GetTokenRequest
             {
@@ -21,7 +21,7 @@ namespace Waiter.Core.Services
             return (response.AccessToken, response.RefreshToken);
         }
 
-        public Task<(string, string)> GetTokenAsync()
+        public async Task<(string, string)> GetTokenAsync()
         {
             throw new NotImplementedException();
         }
