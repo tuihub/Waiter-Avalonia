@@ -19,6 +19,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using Waiter.Helpers;
+using Waiter.Core.Services;
+
+using static TuiHub.Protos.Librarian.Sephirah.V1.LibrarianSephirahService;
 
 namespace Waiter;
 
@@ -66,11 +69,16 @@ public partial class App : Application
 
         // add singleton services
         services.AddSingleton<IPageService, PageService>();
-        services.AddSingleton<ILibrarianClientService, ILibrarianClientService>();
-        services.AddSingleton<GlobalContext>();
+        services.AddSingleton<ILibrarianClientService, LibrarianClientService>();
         
         // add db context
         services.AddDbContext<ApplicationDbContext>();
+
+        // add grpc client factory
+        services.AddGrpcClient<LibrarianSephirahServiceClient>("SephirahClient", o =>
+        {
+            o.Address = new Uri(GlobalContext.SystemConfig.ServerURL);
+        });
 
         // add main view and view model
         services.AddScoped<MainView>();
@@ -89,7 +97,15 @@ public partial class App : Application
 
     private void PostConfiguration()
     {
-        var globalContext = ServiceProvider.GetRequiredService<GlobalContext>();
+        var builder = new ConfigurationBuilder()
+                          .SetBasePath(GlobalContext.AssemblyDir)
+                          .AddJsonFile("appsettings.json", optional: false);
+        var configuration = builder.Build();
+        GlobalContext.SystemConfig = configuration.GetSection("SystemConfig").Get<SystemConfig>();
+
+        // ensure data, cache dir created
+        Directory.CreateDirectory(GlobalContext.SystemConfig.GetRealDataDirPath());
+        Directory.CreateDirectory(GlobalContext.SystemConfig.GetRealCacheDirPath());
 
         // ensure db created
         using var db = ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -103,7 +119,6 @@ public partial class App : Application
         // set login state from db
         var user = db.Users.First();
         GlobalContextStateHelper.UpdateLoginState(
-                                    globalContext,
                                     db,
                                     string.IsNullOrEmpty(user.AccessToken) ? null : user.AccessToken,
                                     string.IsNullOrEmpty(user.RefreshToken) ? null : user.RefreshToken)

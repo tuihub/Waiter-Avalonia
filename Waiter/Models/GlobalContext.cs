@@ -13,22 +13,10 @@ using Waiter.Models;
 
 namespace Waiter.Models
 {
-    public class GlobalContext
+    public static class GlobalContext
     {
-        public GlobalContext()
-        {
-            var builder = new ConfigurationBuilder()
-                          .SetBasePath(AssemblyDir)
-                          .AddJsonFile("appsettings.json", optional: false);
-            var configuration = builder.Build();
-            SystemConfig = configuration.GetSection("SystemConfig").Get<SystemConfig>();
-
-            // ensure data, cache dir created
-            Directory.CreateDirectory(SystemConfig.GetRealDataDirPath());
-            Directory.CreateDirectory(SystemConfig.GetRealCacheDirPath());
-        }
-        public readonly string AssemblyDir = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
-        public SystemConfig SystemConfig { get; set; } = new SystemConfig();
-        public UserConfig UserConfig { get; set; } = new UserConfig();
+        public static readonly string AssemblyDir = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
+        public static SystemConfig SystemConfig { get; set; } = new SystemConfig();
+        public static UserConfig UserConfig { get; set; } = new UserConfig();
     }
 }
