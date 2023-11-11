@@ -21,4 +21,8 @@
     <PackageReference Include="FluentAvaloniaUI" Version="2.0.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Waiter.Core\Waiter.Core.csproj" />
+  </ItemGroup>
 </Project>

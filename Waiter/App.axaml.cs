@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Security.Authentication.ExtendedProtection;
 using Waiter.Contracts;
+using Waiter.Core.Contracts.Services;
 using Waiter.Pages;
 using Waiter.Services;
 using Waiter.ViewModels;
@@ -55,6 +56,7 @@ public partial class App : Application
 
         // add singleton services
         services.AddSingleton<IPageService, PageService>();
+        services.AddSingleton<ILibrarianClientService, ILibrarianClientService>();
 
         // add main view and view model
         services.AddScoped<MainView>();
