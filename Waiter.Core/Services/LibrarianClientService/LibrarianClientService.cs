@@ -10,7 +10,7 @@ namespace Waiter.Core.Services
 {
     public partial class LibrarianClientService : ILibrarianClientService
     {
-        GrpcClientFactory _grpcClientFactory;
+        private GrpcClientFactory _grpcClientFactory;
         public LibrarianClientService(GrpcClientFactory grpcClientFactory)
         {
             _grpcClientFactory = grpcClientFactory;

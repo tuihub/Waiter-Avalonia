@@ -67,10 +67,6 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        // add singleton services
-        services.AddSingleton<IPageService, PageService>();
-        services.AddSingleton<ILibrarianClientService, LibrarianClientService>();
-        
         // add db context
         services.AddDbContext<ApplicationDbContext>();
 
@@ -79,6 +75,10 @@ public partial class App : Application
         {
             o.Address = new Uri(GlobalContext.SystemConfig.ServerURL);
         });
+
+        // add singleton services
+        services.AddSingleton<IPageService, PageService>();
+        services.AddSingleton<ILibrarianClientService, LibrarianClientService>();
 
         // add main view and view model
         services.AddScoped<MainView>();
