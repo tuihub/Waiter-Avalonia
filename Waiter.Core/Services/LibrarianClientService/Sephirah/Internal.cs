@@ -13,10 +13,13 @@ namespace Waiter.Core.Services
 {
     public partial class LibrarianClientService : ILibrarianClientService
     {
-        public async Task<GetServerInformationResponse> GetServerInformationAsync()
+        public async Task<GetServerInformationResponse> GetServerInformationAsync(CancellationToken cts = default)
         {
             var client = _grpcClientFactory.CreateClient<LibrarianSephirahServiceClient>("SephirahClient");
-            return await client.GetServerInformationAsync(new GetServerInformationRequest());
+            var ret = await client.GetServerInformationAsync(new GetServerInformationRequest(), cancellationToken: cts);
+            if (cts.IsCancellationRequested) 
+                return new GetServerInformationResponse();
+            return ret;
         }
     }
 }

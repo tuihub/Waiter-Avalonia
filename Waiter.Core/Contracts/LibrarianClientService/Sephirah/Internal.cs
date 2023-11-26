@@ -9,6 +9,6 @@ namespace Waiter.Core.Contracts.Services
 {
     public partial interface ILibrarianClientService
     {
-        Task<GetServerInformationResponse> GetServerInformationAsync();
+        Task<GetServerInformationResponse> GetServerInformationAsync(CancellationToken cts = default);
     }
 }

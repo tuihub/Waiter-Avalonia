@@ -12,7 +12,7 @@ namespace Waiter.Core.Services
 {
     public partial class LibrarianClientService : ILibrarianClientService
     {
-        public async Task<(string, string)> GetTokenAsync(string username, string password)
+        public async Task<(string, string)> GetTokenAsync(string username, string password, CancellationToken cts = default)
         {
             var client = _grpcClientFactory.CreateClient<LibrarianSephirahServiceClient>("SephirahClient");
             var request = new GetTokenRequest
@@ -20,11 +20,13 @@ namespace Waiter.Core.Services
                 Username = username,
                 Password = password
             };
-            var response = await client.GetTokenAsync(request);
+            var response = await client.GetTokenAsync(request, cancellationToken: cts);
+            if (cts.IsCancellationRequested)
+                return (string.Empty, string.Empty);
             return (response.AccessToken, response.RefreshToken);
         }
 
-        public async Task<(string, string)> GetTokenAsync()
+        public async Task<(string, string)> RefreshTokenAsync(CancellationToken cts = default)
         {
             throw new NotImplementedException();
         }

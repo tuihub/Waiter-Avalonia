@@ -10,8 +10,8 @@ namespace Waiter.Core.Contracts.Services
     public partial interface ILibrarianClientService
     {
         // username password login
-        Task<(string, string)> GetTokenAsync(string username, string password);
+        Task<(string, string)> GetTokenAsync(string username, string password, CancellationToken cts = default);
         // refreshToken reAuth
-        Task<(string, string)> GetTokenAsync();
+        Task<(string, string)> RefreshTokenAsync(CancellationToken cts = default);
     }
 }
