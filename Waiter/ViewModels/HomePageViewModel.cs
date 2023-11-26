@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using FluentAvalonia.UI.Controls;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Waiter.ViewModels
         {
             _librarianClientService = librarianClientService;
 
-            ClickCommand();
+            //ClickCommand();
         }
         private string _greeting = "HomePage Hello World!";
         public string Greeting
@@ -28,7 +29,16 @@ namespace Waiter.ViewModels
         {
             Greeting = "Loading...";
             var serverInfo = await _librarianClientService.GetServerInformationAsync();
-            Greeting =  serverInfo.ToString();
+            Greeting = serverInfo.ToString();
+        }
+
+        public async void ShowContentDialogCommand()
+        {
+            var dialog = new ContentDialog
+            {
+                CloseButtonText = "Close"
+            };
+            await dialog.ShowAsync();
         }
     }
 }
