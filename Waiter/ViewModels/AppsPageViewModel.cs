@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -17,6 +18,12 @@ namespace Waiter.ViewModels
         {
             _librarianClientService = librarianClientService;
         }
-        public string Greeting => "AppsPage Hello World!";
+
+        private List<AppCategoryWithApps> _appCategoriesWithApps = new();
+        public List<AppCategoryWithApps> AppCategoriesWithApps
+        {
+            get => _appCategoriesWithApps;
+            set => this.RaiseAndSetIfChanged(ref _appCategoriesWithApps, value);
+        }
     }
 }

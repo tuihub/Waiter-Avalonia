@@ -15,7 +15,7 @@ namespace Waiter.Models
             get => _appCategory;
             set => this.RaiseAndSetIfChanged(ref _appCategory, value);
         }
-        public List<Core.Models.App> _apps = new();
+        private List<Core.Models.App> _apps = new();
         public List<Core.Models.App> Apps
         {
             get => _apps;

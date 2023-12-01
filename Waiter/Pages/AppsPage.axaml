@@ -7,10 +7,45 @@
 			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              xmlns:vm="clr-namespace:Waiter.ViewModels"
              xmlns:vmd="clr-namespace:Waiter.ViewModels.Design"
+			 xmlns:models="clr-namespace:Waiter.Models"
+			 xmlns:cmodels="clr-namespace:Waiter.Core.Models;assembly=Waiter.Core"
              x:Class="Waiter.Pages.AppsPage"
-			 x:DataType="vm:AppsPageViewModel">
+			 x:DataType="vmd:AppsPageViewModel">
 	<Design.DataContext>
 		<vmd:AppsPageViewModel />
 	</Design.DataContext>
-	<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" MinWidth="180" MaxWidth="300" />
+			<ColumnDefinition Width="2*" />
+		</Grid.ColumnDefinitions>
+
+		<TreeView
+			Grid.Column="0"
+			ItemsSource="{Binding AppCategoriesWithApps}">
+			<TreeView.DataTemplates>
+				<TreeDataTemplate
+					DataType="models:AppCategoryWithApps"
+					ItemsSource="{Binding Apps}">
+					<TreeViewItem Header="{Binding AppCategoryName}" />
+				</TreeDataTemplate>
+				<TreeDataTemplate
+					DataType="cmodels:App">
+					<Grid
+						ColumnDefinitions="Auto,*">
+						<Image
+                            Grid.Column="0"
+                            Stretch="Uniform"
+                            Source="{Binding IconImageUrl}" />
+						<Label
+                            Margin="3,0,0,0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Content="{Binding Name}" />
+					</Grid>
+				</TreeDataTemplate>
+			</TreeView.DataTemplates>
+		</TreeView>
+		
+	</Grid>
 </UserControl>
