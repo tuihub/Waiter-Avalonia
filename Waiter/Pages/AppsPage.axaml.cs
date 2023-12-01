@@ -11,5 +11,9 @@ namespace Waiter.Pages
 
             InitializeComponent();
         }
+        public AppsPage()
+        {
+            InitializeComponent();
+        }
     }
 }

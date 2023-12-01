@@ -6,10 +6,11 @@
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              xmlns:vm="clr-namespace:Waiter.ViewModels"
+             xmlns:vmd="clr-namespace:Waiter.ViewModels.Design"
              x:Class="Waiter.Pages.AppsPage"
 			 x:DataType="vm:AppsPageViewModel">
 	<Design.DataContext>
-		<vm:AppsPageViewModel />
+		<vmd:AppsPageViewModel />
 	</Design.DataContext>
 	<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </UserControl>

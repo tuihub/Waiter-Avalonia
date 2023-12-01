@@ -22,6 +22,8 @@ using Waiter.Helpers;
 using Waiter.Core.Services;
 
 using static TuiHub.Protos.Librarian.Sephirah.V1.LibrarianSephirahService;
+using System.Diagnostics;
+using Avalonia.Controls;
 
 namespace Waiter;
 
@@ -36,8 +38,8 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        PreConfiguration();
         ConfigureServiceProvider();
-        PostConfiguration();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -97,8 +99,10 @@ public partial class App : Application
         return services;
     }
 
-    private void PostConfiguration()
+    private void PreConfiguration()
     {
+        // do not configure in design mode
+        if (Design.IsDesignMode) return;
         var builder = new ConfigurationBuilder()
                           .SetBasePath(GlobalContext.AssemblyDir)
                           .AddJsonFile("appsettings.json", optional: false);
@@ -110,7 +114,7 @@ public partial class App : Application
         Directory.CreateDirectory(GlobalContext.SystemConfig.GetRealCacheDirPath());
 
         // ensure db created
-        using var db = ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        using var db = new ApplicationDbContext();
         db.Database.Migrate();
 
         // ensure user created
