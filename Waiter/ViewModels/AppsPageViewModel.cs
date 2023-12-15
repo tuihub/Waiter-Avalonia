@@ -25,5 +25,11 @@ namespace Waiter.ViewModels
             get => _appCategoriesWithApps;
             set => this.RaiseAndSetIfChanged(ref _appCategoriesWithApps, value);
         }
+        private List<string> _appNames = new();
+        public List<string> AppNames
+        {
+            get => _appNames;
+            set => this.RaiseAndSetIfChanged(ref _appNames, value);
+        }
     }
 }

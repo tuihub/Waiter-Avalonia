@@ -4,12 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Waiter.Core.Contracts.Services;
 using Waiter.Models;
 
 namespace Waiter.ViewModels.Design
 {
-    public class AppsPageViewModel : ViewModelBase
-    {
+    public class AppsPageViewModel : ViewModels.AppsPageViewModel
+    {   
+        public AppsPageViewModel() : base(null)
+        {
+            base.AppCategoriesWithApps = _appCategoriesWithApps;
+            base.AppNames = _appNames;
+        }
+
         private List<AppCategoryWithApps> _appCategoriesWithApps =
         [
             new() {
@@ -86,19 +93,11 @@ namespace Waiter.ViewModels.Design
                 ]
             },
         ];
-        public List<AppCategoryWithApps> AppCategoriesWithApps
-        {
-            get => _appCategoriesWithApps;
-        }
         private List<string> _appNames = new()
         {
             "App1",
             "App2",
             "App3",
         };
-        public List<string> AppNames
-        {
-            get => _appNames;
-        }
     }
 }

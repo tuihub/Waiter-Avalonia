@@ -10,7 +10,7 @@
 			 xmlns:models="clr-namespace:Waiter.Models"
 			 xmlns:cmodels="clr-namespace:Waiter.Core.Models;assembly=Waiter.Core"
              x:Class="Waiter.Pages.AppsPage"
-			 x:DataType="vmd:AppsPageViewModel">
+			 x:DataType="vm:AppsPageViewModel">
 	<Design.DataContext>
 		<vmd:AppsPageViewModel />
 	</Design.DataContext>
