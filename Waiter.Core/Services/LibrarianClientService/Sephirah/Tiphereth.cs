@@ -28,7 +28,12 @@ namespace Waiter.Core.Services
 
         public async Task<(string, string)> RefreshTokenAsync(CancellationToken cts = default)
         {
-            throw new NotImplementedException();
+            var client = _grpcClientFactory.CreateClient<LibrarianSephirahServiceClient>("SephirahClientWithRefreshToken");
+            var request = new RefreshTokenRequest();
+            var response = await client.RefreshTokenAsync(request, cancellationToken: cts);
+            if (cts.IsCancellationRequested)
+                return (string.Empty, string.Empty);
+            return (response.AccessToken, response.RefreshToken);
         }
     }
 }

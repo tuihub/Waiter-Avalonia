@@ -73,19 +73,17 @@ public partial class App : Application
         services.AddDbContext<ApplicationDbContext>();
 
         // add grpc client factory
-        services.AddGrpcClient<LibrarianSephirahServiceClient>("SephirahClient", o =>
-        {
-            o.Address = new Uri(GlobalContext.SystemConfig.ServerURL);
-        });
+        ConfigureGrpcClientFactory(services);
 
         // add singleton services
+        services.AddSingleton<IStateService, StateService>();
         services.AddSingleton<IPageService, PageService>();
         services.AddSingleton<ILibrarianClientService, LibrarianClientService>();
 
         // add main view and view model
         services.AddScoped<MainView>();
         services.AddScoped<MainViewModel>();
-        
+
         // add pages and view models
         services.AddScoped<HomePage>();
         services.AddScoped<HomePageViewModel>();
@@ -97,6 +95,36 @@ public partial class App : Application
         services.AddScoped<AppsPageViewModel>();
 
         return services;
+    }
+
+    private static void ConfigureGrpcClientFactory(ServiceCollection services)
+    {
+        services.AddGrpcClient<LibrarianSephirahServiceClient>("SephirahClient", o =>
+        {
+            o.Address = new Uri(GlobalContext.SystemConfig.ServerURL);
+        });
+        services.AddGrpcClient<LibrarianSephirahServiceClient>("SephirahClientWithAccessToken", o =>
+        {
+            o.Address = new Uri(GlobalContext.SystemConfig.ServerURL);
+        })
+        .AddCallCredentials((context, metadata, serviceProvider) =>
+        {
+            var provider = serviceProvider.GetRequiredService<IStateService>();
+            var token = provider.AccessToken;
+            metadata.Add("Authorization", $"Bearer {token}");
+            return Task.CompletedTask;
+        });
+        services.AddGrpcClient<LibrarianSephirahServiceClient>("SephirahClientWithRefreshToken", o =>
+        {
+            o.Address = new Uri(GlobalContext.SystemConfig.ServerURL);
+        })
+        .AddCallCredentials((context, metadata, serviceProvider) =>
+        {
+            var provider = serviceProvider.GetRequiredService<IStateService>();
+            var token = provider.RefreshToken;
+            metadata.Add("Authorization", $"Bearer {token}");
+            return Task.CompletedTask;
+        });
     }
 
     private void PreConfiguration()
