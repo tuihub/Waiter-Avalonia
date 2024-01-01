@@ -79,6 +79,7 @@ public partial class App : Application
         services.AddSingleton<IStateService, StateService>();
         services.AddSingleton<IRequestService, RequestService>();
         services.AddSingleton<IPageService, PageService>();
+        services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<ILibrarianClientService, LibrarianClientService>();
 
         // add main view and view model
