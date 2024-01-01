@@ -77,6 +77,7 @@ public partial class App : Application
 
         // add singleton services
         services.AddSingleton<IStateService, StateService>();
+        services.AddSingleton<IRequestService, RequestService>();
         services.AddSingleton<IPageService, PageService>();
         services.AddSingleton<ILibrarianClientService, LibrarianClientService>();
 
@@ -109,8 +110,8 @@ public partial class App : Application
         })
         .AddCallCredentials((context, metadata, serviceProvider) =>
         {
-            var provider = serviceProvider.GetRequiredService<IStateService>();
-            var token = provider.AccessToken;
+            var stateService = serviceProvider.GetRequiredService<IStateService>();
+            var token = stateService.AccessToken;
             metadata.Add("Authorization", $"Bearer {token}");
             return Task.CompletedTask;
         });
@@ -120,8 +121,8 @@ public partial class App : Application
         })
         .AddCallCredentials((context, metadata, serviceProvider) =>
         {
-            var provider = serviceProvider.GetRequiredService<IStateService>();
-            var token = provider.RefreshToken;
+            var stateService = serviceProvider.GetRequiredService<IStateService>();
+            var token = stateService.RefreshToken;
             metadata.Add("Authorization", $"Bearer {token}");
             return Task.CompletedTask;
         });

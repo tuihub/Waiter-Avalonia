@@ -17,7 +17,15 @@ namespace Waiter.Services
         public State CurrentState
         {
             get => _currentState;
-            set => _currentState = value;
+            set
+            {
+                _currentState = value;
+                if (value == State.LoggedOut)
+                {
+                    _accessToken = string.Empty;
+                    _refreshToken = string.Empty;
+                }
+            }
         }
 
         public string AccessToken
