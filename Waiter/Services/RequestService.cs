@@ -23,7 +23,7 @@ namespace Waiter.Services
             _librarianClientService = librarianClientService;
         }
 
-        public async Task DoRequestAsync(Func<Task> work, Func<Task> workCleanUp, CancellationToken cts = default)
+        public async Task DoRequestAsync(Func<Task> work, Func<Task>? workCleanUp = null, CancellationToken cts = default)
         {
             try
             {
@@ -42,12 +42,13 @@ namespace Waiter.Services
             }
             catch
             {
-                await workCleanUp();
+                if (workCleanUp != null)
+                    await workCleanUp();
                 throw;
             }
         }
 
-        public void DoRequest(Action work, Action workCleanUp)
+        public void DoRequest(Action work, Action? workCleanUp = null)
         {
             try
             {
@@ -66,7 +67,8 @@ namespace Waiter.Services
             }
             catch
             {
-                workCleanUp();
+                if (workCleanUp != null)
+                    workCleanUp();
                 throw;
             }
         }

@@ -9,7 +9,7 @@ namespace Waiter.Contracts
 {
     public interface IRequestService
     {
-        Task DoRequestAsync(Func<Task> work, Func<Task> workCleanUp, CancellationToken cts);
-        void DoRequest(Action work, Action workCleanUp);
+        Task DoRequestAsync(Func<Task> work, Func<Task>? workCleanUp = null, CancellationToken cts = default);
+        void DoRequest(Action work, Action? workCleanUp = null);
     }
 }
