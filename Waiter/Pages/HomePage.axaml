@@ -6,21 +6,82 @@
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              xmlns:vm="clr-namespace:Waiter.ViewModels"
+             xmlns:vmd="clr-namespace:Waiter.ViewModels.Design"
              x:Class="Waiter.Pages.HomePage"
 			 x:DataType="vm:HomePageViewModel">
 	<Design.DataContext>
-		<vm:HomePageViewModel />
+		<vmd:HomePageViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="Auto, Auto, *" >
+	<Grid RowDefinitions="Auto, Auto, Auto, *" >
+		<Grid
+			RowDefinitions="Auto, Auto, Auto, Auto, Auto"
+			ColumnDefinitions="Auto, *" >
+			<Label
+				Grid.Column="0"
+				Grid.Row="0"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Content="源码地址：" />
+			<TextBlock
+				Grid.Column="1"
+				Grid.Row="0"
+				VerticalAlignment="Center"
+				Text="{Binding ServerInfo.ServerBinarySummary.SourceCodeAddress}" />
+			<Label
+				Grid.Column="0"
+				Grid.Row="1"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Content="构建版本：" />
+			<TextBlock
+				Grid.Column="1"
+				Grid.Row="1"
+				VerticalAlignment="Center"
+				Text="{Binding ServerInfo.ServerBinarySummary.BuildVersion}" />
+			<Label
+				Grid.Column="0"
+				Grid.Row="2"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Content="构建时间：" />
+			<TextBlock
+				Grid.Column="1"
+				Grid.Row="2"
+				VerticalAlignment="Center"
+				Text="{Binding ServerInfo.ServerBinarySummary.BuildDate}" />
+			<Label
+				Grid.Column="0"
+				Grid.Row="3"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Content="协议版本：" />
+			<TextBlock
+				Grid.Column="1"
+				Grid.Row="3"
+				VerticalAlignment="Center"
+				Text="{Binding ServerInfo.ProtocolSummary.Version}" />
+			<Label
+				Grid.Column="0"
+				Grid.Row="4"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Content="服务器时间：" />
+			<TextBlock
+				Grid.Column="1"
+				Grid.Row="4"
+				VerticalAlignment="Center"
+				Text="{Binding ServerInfo.CurrentTime}" />
+		</Grid>
 		<TextBlock
-			Grid.Row="0"
+			Grid.Row="1"
+			TextWrapping="WrapWithOverflow"
 			Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		<Button
-			Grid.Row="1"
+			Grid.Row="2"
 			Content="Click me"
 			Command="{Binding ClickCommand}"/>
 		<Button
-			Grid.Row="2"
+			Grid.Row="3"
 			Content="Show content dialog"
 			Command="{Binding ShowContentDialogCommand}"/>
 	</Grid>

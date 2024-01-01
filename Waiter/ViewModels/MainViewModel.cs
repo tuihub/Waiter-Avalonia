@@ -48,6 +48,8 @@ public class MainViewModel : ViewModelBase
 
     public void FrameViewNavigateFromObject(Frame frame, Type type)
     {
+        frame.Content?.GetType().GetMethod("OnNavigatedFrom")?.Invoke(frame.Content, null);
         frame.Content = _pageService.GetPage(type);
+        frame.Content?.GetType().GetMethod("OnNavigatedTo")?.Invoke(frame.Content, null);
     }
 }

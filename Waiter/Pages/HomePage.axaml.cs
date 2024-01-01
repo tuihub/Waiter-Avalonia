@@ -11,5 +11,15 @@ namespace Waiter.Pages
 
             InitializeComponent();
         }
+
+        public HomePage()
+        {
+            InitializeComponent();
+        }
+
+        public void OnNavigatedTo()
+        {
+            (DataContext as HomePageViewModel)?.OnNavigatedTo();
+        }
     }
 }
