@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vmdi="clr-namespace:Waiter.ViewModels.Dialogs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Waiter.Views.Dialogs.LoginDialog"
+			 x:DataType="vmdi:LoginDialogViewModel">
+	<Grid
+		RowDefinitions="Auto, Auto"
+		ColumnDefinitions="75, 175">
+		<Label
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Content="用户名：" />
+		<TextBox
+			Grid.Column="1"
+			Grid.Row="0"
+			VerticalAlignment="Center"
+			Text="{Binding UserName, Mode=OneWayToSource}" />
+		<Label
+			Grid.Column="0"
+			Grid.Row="1"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Content="密码：" />
+		<TextBox
+			Grid.Column="1"
+			Grid.Row="1"
+			VerticalAlignment="Center"
+			PasswordChar="*"
+			Text="{Binding Password, Mode=OneWayToSource}" />
+	</Grid>
+</UserControl>

@@ -68,11 +68,7 @@ namespace Waiter.ViewModels
 
         public async void ShowContentDialogCommand()
         {
-            var dialog = new ContentDialog
-            {
-                CloseButtonText = "Close"
-            };
-            await dialog.ShowAsync();
+            await _dialogService.ShowLoginDialogAsync();
         }
     }
 }
