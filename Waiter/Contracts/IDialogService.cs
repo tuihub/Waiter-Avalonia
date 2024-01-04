@@ -9,6 +9,7 @@ namespace Waiter.Contracts
     public interface IDialogService
     {
         Task ShowContentDialogAsync(Exception ex);
+        Task ShowContentDialogAsync(string msg);
         Task ShowLoginDialogAsync();
     }
 }
