@@ -15,5 +15,10 @@ namespace Waiter.Pages
         {
             InitializeComponent();
         }
+
+        public void OnNavigatedTo()
+        {
+            (DataContext as AppsPageViewModel)?.OnNavigatedToAsync();
+        }
     }
 }

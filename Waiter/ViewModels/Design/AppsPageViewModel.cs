@@ -11,10 +11,9 @@ namespace Waiter.ViewModels.Design
 {
     public class AppsPageViewModel : ViewModels.AppsPageViewModel
     {   
-        public AppsPageViewModel() : base(null)
+        public AppsPageViewModel() : base(null, null, null)
         {
             base.AppCategoriesWithApps = _appCategoriesWithApps;
-            base.AppNames = _appNames;
         }
 
         private List<AppCategoryWithApps> _appCategoriesWithApps =
@@ -93,11 +92,5 @@ namespace Waiter.ViewModels.Design
                 ]
             },
         ];
-        private List<string> _appNames = new()
-        {
-            "App1",
-            "App2",
-            "App3",
-        };
     }
 }

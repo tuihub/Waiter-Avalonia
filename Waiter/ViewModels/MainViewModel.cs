@@ -22,6 +22,12 @@ public class MainViewModel : ViewModelBase
             Content = "主界面",
             Tag = typeof(HomePage),
             IconSource = new SymbolIconSource { Symbol = Symbol.Home }
+        },
+        new NavigationViewItem
+        {
+            Content = "Apps",
+            Tag = typeof(AppsPage),
+            IconSource = new SymbolIconSource { Symbol = Symbol.AllApps }
         }
     };
     public IList<NavigationViewItem> FooterMenuItems { get; } = new List<NavigationViewItem>
