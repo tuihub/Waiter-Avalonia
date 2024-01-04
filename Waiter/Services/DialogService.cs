@@ -49,7 +49,8 @@ namespace Waiter.Services
             {
                 Title = "登录",
                 PrimaryButtonText = "登录",
-                CloseButtonText = "取消"
+                CloseButtonText = "取消",
+                DefaultButton = ContentDialogButton.Primary
             };
             var loginDialogViewModel = new LoginDialogViewModel(dialog);
             dialog.Content = new LoginDialog
