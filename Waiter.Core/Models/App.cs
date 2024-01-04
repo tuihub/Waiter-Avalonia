@@ -19,7 +19,6 @@ namespace Waiter.Core.Models
         public string? IconImageUrl { get; set; }
         public string? HeroImageUrl { get; set; }
         public AppDetails? AppDetails { get; set; }
-        public IEnumerable<long> AppCategoryIds { get; set; } = new List<long>();
         public App(TuiHub.Protos.Librarian.V1.App app)
         {
             InternalId = app.Id.Id;
@@ -32,7 +31,6 @@ namespace Waiter.Core.Models
             IconImageUrl = string.IsNullOrEmpty(app.IconImageUrl) ? null : app.IconImageUrl;
             HeroImageUrl = string.IsNullOrEmpty(app.HeroImageUrl) ? null : app.HeroImageUrl;
             AppDetails = new AppDetails(app.Details);
-            AppCategoryIds = app.AppCategoryIds.Select(x => x.Id);
         }
         public App() { }
     }
